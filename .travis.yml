@@ -26,7 +26,7 @@ before_script:
 script:
   - cargo build
   - cargo test --all
-  - cargo bench --all
+#  - cargo bench --all
   - cargo doc -p c-lexer-stable
 after_success:
   - cargo coveralls --all

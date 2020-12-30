@@ -1,10 +1,10 @@
 #![feature(test)]
-extern crate c_lexer;
+extern crate c_lexer_stable;
 extern crate test;
 
 use self::test::Bencher;
 
-use c_lexer::Lexer;
+use c_lexer_stable::Lexer;
 
 static C: &str = r#"int a[15];
 
