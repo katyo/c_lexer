@@ -1,8 +1,8 @@
 [package]
-name = "c-lexer"
+name = "c-lexer-stable"
 version = "0.1.1"
 authors = ["lsongzhi <lsongzhi@163.com>", "perdumonocle <konstantin_1987@mail.ru>"]
-repository = "https://github.com/perdumonocle/c-lexer"
+repository = "https://github.com/perdumonocle/c-lexer-stable"
 readme = "README.md"
 keywords = ["C", "lexer", "parser", "tokenizer"]
 categories = ["parser-implementations"]
