@@ -13,6 +13,7 @@ addons:
     sources:
       - kalakris-cmake
 rust:
+  - stable
   - nightly
 os:
   - linux
@@ -26,6 +27,6 @@ script:
   - cargo build
   - cargo test --all
   - cargo bench --all
-  - cargo doc -p c_lexer
+  - cargo doc -p c-lexer-stable
 after_success:
   - cargo coveralls --all

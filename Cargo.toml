@@ -1,6 +1,6 @@
 [package]
 name = "c-lexer-stable"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["lsongzhi <lsongzhi@163.com>", "perdumonocle <konstantin_1987@mail.ru>"]
 repository = "https://github.com/perdumonocle/c-lexer-stable"
 readme = "README.md"
@@ -15,7 +15,7 @@ phf = { version = "0.7", features = ["macros"] }
 internship = "0.6"
 
 [badges]
-travis-ci = { repository = "perdumonocle/c-lexer", branch = "master" }
+travis-ci = { repository = "perdumonocle/c-lexer-stable", branch = "master" }
 
 [profile.release]
 lto = true
