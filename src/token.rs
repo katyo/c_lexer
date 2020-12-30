@@ -43,7 +43,7 @@ pub enum Token {
     Exclamation,  // !
     Plus,         // +
     Multi,        // *
-    Slash,       // /
+    Slash,        // /
     Colon,        // :
     QuestionMark, // ?
     Comma,        // ,

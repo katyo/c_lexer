@@ -1,4 +1,4 @@
-use crate::token::{Token, Number};
+use crate::token::{Number, Token};
 use std::{char::from_u32, str};
 
 // # Performance
@@ -41,8 +41,10 @@ fn to_unescaped(input: String) -> String {
                     for _ in 0..3 {
                         i.next();
                     }
-                    let as_num = u64::from_str_radix(unsafe { str::from_utf8_unchecked(nums) }, 16).unwrap_or(0);
-                    from_u32(as_num as u32).expect(format!("{} is not a valid unicode scalar value", as_num).as_str())
+                    let as_num = u64::from_str_radix(unsafe { str::from_utf8_unchecked(nums) }, 16)
+                        .unwrap_or(0);
+                    from_u32(as_num as u32)
+                        .unwrap_or_else(|| panic!("{} is not a valid unicode scalar value", as_num))
                 }
                 'x' => {
                     let index = i.next().unwrap();
@@ -50,8 +52,10 @@ fn to_unescaped(input: String) -> String {
                     for _ in 0..3 {
                         i.next();
                     }
-                    let as_num = u64::from_str_radix(unsafe { str::from_utf8_unchecked(nums) }, 16).unwrap_or(0);
-                    from_u32(as_num as u32).expect(format!("{} is not a valid unicode scalar value", as_num).as_str())
+                    let as_num = u64::from_str_radix(unsafe { str::from_utf8_unchecked(nums) }, 16)
+                        .unwrap_or(0);
+                    from_u32(as_num as u32)
+                        .unwrap_or_else(|| panic!("{} is not a valid unicode scalar value", as_num))
                 }
                 _ => *c as char,
             };
@@ -109,7 +113,10 @@ mod tests {
     should!(
         string_single_unescape,
         "'\t'",
-        vec![Token::NumericLiteral(Number::new(b'\t' as u32, 0, 0, 10)), Token::EOF]
+        vec![
+            Token::NumericLiteral(Number::new(b'\t' as u32, 0, 0, 10)),
+            Token::EOF
+        ]
     );
 
     should!(
@@ -141,5 +148,4 @@ mod tests {
         "\"\\x4E\"",
         vec![Token::StringLiteral(String::from("N")), Token::EOF]
     );
-
 }

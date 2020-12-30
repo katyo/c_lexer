@@ -38,12 +38,12 @@ pub fn parse_number_decimal(
         .enumerate()
         .take(*c_src - 1)
         .skip(*c_src - token_len as usize)
-        {
-            if *item == b'.' {
-                i_point = i;
-                break;
-            }
+    {
+        if *item == b'.' {
+            i_point = i;
+            break;
         }
+    }
     let integer = unsafe { str::from_utf8_unchecked(&input[*c_src - token_len as usize..i_point]) };
     let integer = u32::from_str_radix(integer, 10)?;
 
@@ -63,22 +63,20 @@ pub fn parse_exponent(input: &[u8], c_src: &mut usize, token_len: u64) -> Result
         .enumerate()
         .take(*c_src - 1)
         .skip(*c_src - token_len as usize)
-        {
-            if *item == b'.' {
-                i_point = Some(i);
-            }
-            if *item == b'e' || *item == b'E' {
-                i_e = i;
-                break;
-            }
+    {
+        if *item == b'.' {
+            i_point = Some(i);
         }
+        if *item == b'e' || *item == b'E' {
+            i_e = i;
+            break;
+        }
+    }
 
-    let (integer, decimal) = if i_point.is_some() {
-        let integer = unsafe {
-            str::from_utf8_unchecked(&input[*c_src - token_len as usize..i_point.unwrap()])
-        };
+    let (integer, decimal) = if let Some(pnt) = i_point {
+        let integer = unsafe { str::from_utf8_unchecked(&input[*c_src - token_len as usize..pnt]) };
         let integer = u32::from_str_radix(integer, 10)?;
-        let decimal = unsafe { str::from_utf8_unchecked(&input[i_point.unwrap() + 1..i_e]) };
+        let decimal = unsafe { str::from_utf8_unchecked(&input[pnt + 1..i_e]) };
         (integer, u32::from_str_radix(decimal, 10)?)
     } else {
         let integer = unsafe { str::from_utf8_unchecked(&input[*c_src - token_len as usize..i_e]) };

@@ -1,4 +1,4 @@
-#![feature(proc_macro_hygiene)]
+//#![feature(proc_macro_hygiene)]
 
 #[macro_use]
 extern crate phf;
@@ -6,13 +6,13 @@ extern crate phf;
 pub mod token;
 #[macro_use]
 mod macros;
+mod equivalence;
+pub mod error;
 mod identifier;
 mod number;
-mod string;
 mod state;
-mod equivalence;
 mod state_machine;
-pub mod error;
+mod string;
 
 /// Module for efficient string representation
 pub mod internship {
