@@ -732,16 +732,20 @@ impl StateMachineWrapper {
 pub fn parse(input: &str) -> Result<Vec<Token>, Error> {
     let mut st = StateMachineWrapper::InputElementDiv(StateMachine::<InputElementDiv>::new());
     let input = input.as_bytes();
+    let input_len = input.len();
     let mut tokens = Vec::with_capacity(input.len());
 
     let mut c_src: usize = 0;
     let mut token_len: u64 = 0;
-    while c_src < input.len() {
+    while c_src < input_len {
         while !st.is_final() {
             let ch = unsafe { *input.get_unchecked(c_src) };
             st = st.step(EQUIVALENCE_CLASS[ch as usize]);
             c_src += 1;
             token_len += 1;
+        }
+        if c_src >= input_len {
+            break;
         }
         let token = &input[c_src - token_len as usize..c_src - 1];
         let token = unsafe { str::from_utf8_unchecked(token) };
